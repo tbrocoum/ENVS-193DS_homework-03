@@ -13,11 +13,11 @@ library(janitor)
 
 #create object for salinity data
 salinity <- read_csv(here("homework_3", "data", "salinity-pickleweed.csv")) 
+
+#create object for personal data 
+#FILL
 ```
 
 
-
-```{r}
-
-```
-
+#Problem 1
+To determine the strength of the relationship between salinity and California pickle weed biomass, we can use a Pearsons correlations and a Spearmans rank correlation test. Pearsons correlations test assumes data is normally distributed while spearmans correlations test does not require the assumption of normality. 
