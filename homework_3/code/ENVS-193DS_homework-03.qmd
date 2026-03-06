@@ -6,10 +6,11 @@ editor: visual
 execute:
   warning: false
   message: false
-output-dir: docs
+html: 
+toc: true
 ---
 
-[Github Repository](FILL)
+[Github Repository](https://tbrocoum.github.io/ENVS-193DS_homework-03/)
 
 ```{r}
 library(here) 
@@ -25,7 +26,7 @@ personal <- read_csv(here("homework_3", "data", "final_data.csv")) |>
   mutate(adhd_medicatoin_yes_no = str_to_title(adhd_medicatoin_yes_no))
 ```
 
-# Problem 1
+# Problem 1: Soil
 
 a. An appropriate test
 
@@ -81,18 +82,6 @@ shapiro.test(salinity$pickleweed)
 ```
 
 To check the assumptions of a persons correlation test, I created a histogram to visualize the distribution of both the independent variable Pickleweed biomass and the independent variable soil salinity as well as ran a shapiro wilks correlation test. Based on the shape of the histogram for both pickleweed biomass and soil salinity, both variables seem to be normally distributed. To confirm this, I ran a shapiro wilks test for both variables which returned a p-value greater than .05 both confirming normal distribution. 
-
-```{r}
-#Check linear relationship with qqplot
-
-
-```
-
-week 8 notes for the 24th of febuary 
-
-check normality and linear relationship with qqplot 
-
-qq plots 
 
 Running Pearson Correlation: 
 ```{r}
@@ -204,7 +193,6 @@ d. Write an artist statement.
 Content: I will be displaying the amount of days I studied compared to the days I do not study in relation to whether or not I took ADHD medication that day. I will displaying this information in proportions color coded onto two clay pills that resemble common ADHD medication. 
 
 Influences: I was influenced by the popular film the Matrix where the main character gets to choose between two pills that will alter the course of the movie. I was also influenced by the affective visualization about proportion of free and enslaved people from Atlanta University.
- 
 
 Form: I will be working with clay and paint to represent my data
 
@@ -217,6 +205,7 @@ e. Prep your materials to share in class
 # Problem 4: Statistical Critique
 
 a. 
+
 This paper uses a Pearson correlation and linear regressions test to analyze data. The response variable here is giant kelp mass measured in square meters of kelp canopy area and the predictor variables are wave height in meters, sea surface temperature in Celsius, and climate indices such as the North Pacific Gyre Oscillation.
 
 INSERT IMAGE
