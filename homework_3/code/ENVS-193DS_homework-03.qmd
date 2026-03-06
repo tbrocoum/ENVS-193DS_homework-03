@@ -183,3 +183,8 @@ Figure 2 shows the relationship between total study time and use of ADHD medicat
 
 
 # Problem 3. Affective visualization
+
+a. Describe Affective Visualization 
+
+In looking at my data, I noticed that the majority of the time I did not take ADHD medication, I did not begin to study, however, every time I took ADHD medication, I studied at least for a little bit. In thinking about this fact, an affective visualization for my data could involve proportions of the amount of times I studied compared to the amount of times I did not study based on whether or not I took ADHD medication. I think it would be fun to represent these proportions in the form of multicolored pills that resemble the medication I take for ADHD.  
+
