@@ -6,6 +6,7 @@ editor: visual
 execute:
   warning: false
   message: false
+output-dir: docs
 ---
 
 [Github Repository](FILL)
@@ -192,11 +193,11 @@ In looking at my data, I noticed that the majority of the time I did not take AD
 
 b. Create a Sketch
 
-![Sketch](homework_3/figures/IMG_0832.jpg)
+![Sketch](..homework_3/figures/IMG_0832.jpg)
 
 c. Create a Draft
 
-![Draft](draft.png)
+![Draft](..draft.png)
 
 d. Write an artist statement.
 
