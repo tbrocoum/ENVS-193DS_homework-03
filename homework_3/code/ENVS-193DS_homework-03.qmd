@@ -143,11 +143,12 @@ ggplot( #start to visualize
   labs( #make proper labels 
     y = "Number of Study Sessions (minimum 25 minutes)", #specify label for x axis 
     x = "ADHD Medication (yes/no)", #specify label for y axis 
-    title = "Ability To Study For 25 Minutes As Shown
+    title = "Figure 1: Ability To Study For 25 Minutes As Shown
           By Use Of ADHD Medication", #come up with a descriptive title 
     color = "ADHD Medication" #I chose to include the key to show how use of ADHD medication affects my ability to study for 25 consecutive minutes; sort this by color
   ) +
-  theme_minimal() #change theme
+  theme_minimal() + #change theme
+  theme(legend.position = "none") 
 ```
 
 ```{r}
@@ -168,9 +169,17 @@ ggplot( #create plot
   labs( #make good labels 
     x = "Total Study Time (minutes)", #x axis is total study time
     y = "Count", #y is always count 
-    title = "Total Study Time Based on use of ADHD Medication" #creative title 
+    title = "Figure 2: Total Study Time Based on use of ADHD Medication" #creative title 
   ) +
   theme_minimal() + #change theme
   theme(legend.position = "none") #choose to not display ledgend 
 ```
 
+b. Captions
+
+Figure 1 shows the relationship between ADHD medication and quantity of minimum 25 minute study sessions. Each point represents an observation for a day in which the individual either took ADHD medication or did not and how many study sessions took place on that day. On days with no ADHD medication, there is a majority of observations for 0 study sessions. On days with ADHD medication there are no observations of 0 study sessions suggesting that ADHD medication corresponds to at least 1 study session on that given day. 
+
+Figure 2 shows the relationship between total study time and use of ADHD medication. Each point represents an observation for a day in which the individual either took ADHD medication or did not and how many minutes the individual studied for. On days without ADHD medication, 0 minutes were studied for the majority of the time. On days with ADHD medication, there was a minimum of 100 minutes studied for each day suggesting that ADHD medication leads to longer study sessions. 
+
+
+# Problem 3. Affective visualization
