@@ -223,6 +223,17 @@ INSERT IMAGE
 b. 
 
 The authors clearly represented their statistics in these figures
-by putting the x and y axis in logical positions and clearly showing underlying data after fitting a model prediction. The statistical relationship between variables is represented by a model prediction with raw data points left on the figure and summary statistics including r squared and p calue for clarity. 
+by putting the x and y axis in logical positions and clearly showing underlying data after fitting a model prediction. The statistical relationship between variables is represented by a model prediction with raw data points left on the figure and summary statistics including r squared and p value for clarity. 
+
+c. 
+
+The authors did a good job minimizing visual clutter by displaying sufficient amounts of data being using minimal ink. Some would argue the raw data point being left in alongside the model summary add to visual clutter, but I think they are important key peices of information to be shown here. The figure is not overwhelming and clearly displays the necessary information. 
+
+d. 
+
+To make the figure better, I think I would take out the summary statistics included on the figure such as p value and r squared. I think these pieces of information do not add anything to the information already being displayed and create some clutter. 
+
+
+
 
 
