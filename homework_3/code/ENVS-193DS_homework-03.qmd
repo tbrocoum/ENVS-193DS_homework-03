@@ -3,8 +3,10 @@ title: "homework_3_code"
 author: "Taylor Brocoum"
 format: html
 editor: visual
+execute:
+  warning: false
+  message: false
 ---
-
 
 ```{r}
 library(here) 
@@ -15,9 +17,160 @@ library(janitor)
 salinity <- read_csv(here("homework_3", "data", "salinity-pickleweed.csv")) 
 
 #create object for personal data 
-#FILL
+personal <- read_csv(here("homework_3", "data", "final_data.csv")) |> 
+  clean_names() |> 
+  mutate(adhd_medicatoin_yes_no = str_to_title(adhd_medicatoin_yes_no))
+```
+
+# Problem 1
+
+a. An appropriate test
+
+To determine the strength of the relationship between salinity and California pickle weed biomass, we can use a Pearsons correlations and a Spearmans rank correlation test. Pearsons correlations test assumes data is normally distributed while spearmans correlations test does not require the assumption of normality. 
+
+b. Create a visualization
+
+```{r}
+ggplot(data = salinity,
+       aes(x = salinity_mS_cm,
+           y = pickleweed)) +
+  labs(x = "Salinity (mS/cm)",
+       y = "Pickleweed Biomass (g)") +
+  theme_classic() +
+  geom_point(color = "blue") +
+  geom_smooth(method = lm)
+
+```
+
+c. Check your assumptions and run your test
+
+Checking assumptions: 
+
+```{r}
+#Visualize distribution of salinity
+ggplot(salinity, aes(salinity_mS_cm)) +
+  geom_histogram(bins = 6,
+                 fill = "blue",
+                 color = "black") + 
+  labs(title = "Histogram for Independent Variable Salinity",
+    x = "Salinity (mS/cm)",
+       y = "Count")
+```
+The distribution of soil salinity looks normally distributed.
+
+```{r}
+#Visualize distribution of pickleweed biomass
+ggplot(salinity, aes(pickleweed)) +
+  geom_histogram(bins = 6,
+                 fill = "blue",
+                 color = "black") + 
+  labs(title = "Histogram for Dependent Variable Pickleweed Biomass",
+    x = "Pickleweed Biomass (g)",
+       y = "Count")
+```
+The distribution of pickleweed biomass in grams looks normally distributed. 
+
+
+```{r}
+#Check normality with shapiro test
+shapiro.test(salinity$salinity_mS_cm)
+shapiro.test(salinity$pickleweed)
+```
+
+To check the assumptions of a persons correlation test, I created a histogram to visualize the distribution of both the independent variable Pickleweed biomass and the independent variable soil salinity as well as ran a shapiro wilks correlation test. Based on the shape of the histogram for both pickleweed biomass and soil salinity, both variables seem to be normally distributed. To confirm this, I ran a shapiro wilks test for both variables which returned a p-value greater than .05 both confirming normal distribution. 
+
+```{r}
+#Check linear relationship with qqplot
+
+
+```
+
+week 8 notes for the 24th of febuary 
+
+check normality and linear relationship with qqplot 
+
+qq plots 
+
+Running Pearson Correlation: 
+```{r}
+cor.test(salinity$salinity_mS_cm,
+         salinity$pickleweed,
+         method = "pearson")
 ```
 
 
-#Problem 1
-To determine the strength of the relationship between salinity and California pickle weed biomass, we can use a Pearsons correlations and a Spearmans rank correlation test. Pearsons correlations test assumes data is normally distributed while spearmans correlations test does not require the assumption of normality. 
+d. Results communication
+
+To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a pearsons correlation test which relies on the assumption that data is normally distributed. We found a moderate relationship between soil salinity and pickleweed biomass (Pearson’s r = 0.53, t(21) = 2.9, p = 0.00, ⍺ = 0.05, 95% CI: 0.16 to 0.78).
+
+e. Test implications
+
+Based on the moderate positive correlation found between pickleweed biomass and soil salinity, it appears that pickleweed biomass is larger in places with higher soil salinity. When it comes to restoration, I would recommend cultivating pickle weed in areas with higher soil salinity to increase chances of successful restoration. 
+
+f. Double check
+
+```{r}
+cor.test(salinity$salinity_mS_cm,
+         salinity$pickleweed,
+         method = "spearman")
+```
+
+In running a spearmans correlation test, we found a moderate positive correlation between soil salinity and pickleweed biomass (Spearman p = 0.59, S = 824, p = .003, ⍺ = 0.05) which is consistent with our results from the persons correlation test (Pearson’s r = 0.53, t(21) = 2.9, p = 0.00, ⍺ = 0.05, 95% CI: 0.16 to 0.78). With that said, both tests would have led me to reject the null that there is no relationship between soil salinity pickleweed biomass and decide that there is a moderate, positive correlation between these variables. 
+
+# Problem 2: Personal Data
+
+a. Updating your visualizations
+
+```{r}
+#Categorical Visualization
+ggplot( #start to visualize 
+  data = personal, #specify data set
+       aes(
+         y = full_study_sessions, #choosing this as my x variable 
+           x = adhd_medicatoin_yes_no, #choosing this as my y variable 
+           color = adhd_medicatoin_yes_no #changing color based on variable ADHD medication
+          )) +
+  geom_jitter( #calling jtter argument 
+    width = 0.15, #width of jitter
+              height = 0, #height stays 0
+              size = 2,
+              alpha = 0.7) +
+  scale_color_manual( #manually choose colors
+    values = c( 
+    "Yes" = "green",#green for yes values
+    "No" = "red" #red for no values 
+  )) +
+  labs( #make proper labels 
+    y = "Number of Study Sessions (minimum 25 minutes)", #specify label for x axis 
+    x = "ADHD Medication (yes/no)", #specify label for y axis 
+    title = "Ability To Study For 25 Minutes As Shown
+          By Use Of ADHD Medication", #come up with a descriptive title 
+    color = "ADHD Medication" #I chose to include the key to show how use of ADHD medication affects my ability to study for 25 consecutive minutes; sort this by color
+  ) +
+  theme_minimal() #change theme
+```
+
+```{r}
+#Continuous Variable 
+ggplot( #create plot
+  data = personal, #call in personal data 
+       aes( 
+         x = total_study_time_mins, #x axis is total study time in minutes
+           fill = adhd_medicatoin_yes_no)) + #filling the histogram color if I took ADHD medication or not 
+  geom_histogram(bins = 6, #rice rule needs 6 bins
+                 color = "black", #boarders black
+                 alpha = 0.7) + #slightly translucent 
+  facet_wrap( #create separate panels for ADHD meds vs vs no ADHD meds 
+    ~ adhd_medicatoin_yes_no) + #choose category to divide histogram based off of 
+  scale_fill_manual( #fill the inside of histogram colors 
+    values = c("Yes" = "green", #green deontes a yes 
+                               "No" = "red")) + #red denotes a no 
+  labs( #make good labels 
+    x = "Total Study Time (minutes)", #x axis is total study time
+    y = "Count", #y is always count 
+    title = "Total Study Time Based on use of ADHD Medication" #creative title 
+  ) +
+  theme_minimal() + #change theme
+  theme(legend.position = "none") #choose to not display ledgend 
+```
+
