@@ -8,6 +8,8 @@ execute:
   message: false
 ---
 
+[Github Repository](FILL)
+
 ```{r}
 library(here) 
 library(tidyverse)
@@ -190,10 +192,11 @@ In looking at my data, I noticed that the majority of the time I did not take AD
 
 b. Create a Sketch
 
-
+![Sketch](homework_3/figures/IMG_0832.jpg)
 
 c. Create a Draft
 
+![Draft](draft.png)
 
 d. Write an artist statement.
 
@@ -207,7 +210,19 @@ Form: I will be working with clay and paint to represent my data
 Process: I plan writing code to get a feel for how I can accurately visualize the proportions I want to represent. Then I will purchase clay and work with it until it resembles the shape of common ADHD medication. Then I will paint this clay to accurately show my proportions. 
 
 e. Prep your materials to share in class
-https://docs.google.com/presentation/d/1lzk5mWtgTSIDNiMMgediydyWw7oIgjWDWcZTOc0O6Jk/edit?usp=sharing 
 
+[Slideshow for class](https://docs.google.com/presentation/d/1lzk5mWtgTSIDNiMMgediydyWw7oIgjWDWcZTOc0O6Jk/edit?usp=sharing)
+
+# Problem 4: Statistical Critique
+
+a. 
+This paper uses a Pearson correlation and linear regressions test to analyze data. The response variable here is giant kelp mass measured in square meters of kelp canopy area and the predictor variables are wave height in meters, sea surface temperature in Celsius, and climate indices such as the North Pacific Gyre Oscillation.
+
+INSERT IMAGE
+
+b. 
+
+The authors clearly represented their statistics in these figures
+by putting the x and y axis in logical positions and clearly showing underlying data after fitting a model prediction. The statistical relationship between variables is represented by a model prediction with raw data points left on the figure and summary statistics including r squared and p calue for clarity. 
 
 
