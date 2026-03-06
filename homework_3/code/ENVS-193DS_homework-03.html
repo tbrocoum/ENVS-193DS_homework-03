@@ -112,7 +112,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>salinity <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"homework_3"</span>, <span class="st">"data"</span>, <span class="st">"salinity-pickleweed.csv"</span>)) </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#create object for personal data </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#FILL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>personal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"homework_3"</span>, <span class="st">"data"</span>, <span class="st">"final_data.csv"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">adhd_medicatoin_yes_no =</span> <span class="fu">str_to_title</span>(adhd_medicatoin_yes_no))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="problem-1" class="level1">
 <h1>Problem 1</h1>
@@ -225,6 +227,130 @@ sample estimates:
 0.5344778 </code></pre>
 </div>
 </div>
+<ol start="4" type="a">
+<li>Results communication</li>
+</ol>
+<p>To evaluate the strength of the relationship between pickleweed biomass and soil salinity, I used a pearsons correlation test which relies on the assumption that data is normally distributed. We found a moderate relationship between soil salinity and pickleweed biomass (Pearson’s r = 0.53, t(21) = 2.9, p = 0.00, ⍺ = 0.05, 95% CI: 0.16 to 0.78).</p>
+<ol start="5" type="a">
+<li>Test implications</li>
+</ol>
+<p>Based on the moderate positive correlation found between pickleweed biomass and soil salinity, it appears that pickleweed biomass is larger in places with higher soil salinity. When it comes to restoration, I would recommend cultivating pickle weed in areas with higher soil salinity to increase chances of successful restoration.</p>
+<ol start="6" type="a">
+<li>Double check</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(salinity<span class="sc">$</span>salinity_mS_cm,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>         salinity<span class="sc">$</span>pickleweed,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  salinity$salinity_mS_cm and salinity$pickleweed
+S = 824, p-value = 0.003426
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+      rho 
+0.5928854 </code></pre>
+</div>
+</div>
+<p>In running a spearmans correlation test, we found a moderate positive correlation between soil salinity and pickleweed biomass (Spearman p = 0.59, S = 824, p = .003, ⍺ = 0.05) which is consistent with our results from the persons correlation test (Pearson’s r = 0.53, t(21) = 2.9, p = 0.00, ⍺ = 0.05, 95% CI: 0.16 to 0.78). With that said, both tests would have led me to reject the null that there is no relationship between soil salinity pickleweed biomass and decide that there is a moderate, positive correlation between these variables.</p>
+</section>
+<section id="problem-2-personal-data" class="level1">
+<h1>Problem 2: Personal Data</h1>
+<ol type="a">
+<li>Updating your visualizations</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Categorical Visualization</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="co">#start to visualize </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> personal, <span class="co">#specify data set</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> full_study_sessions, <span class="co">#choosing this as my x variable </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> adhd_medicatoin_yes_no, <span class="co">#choosing this as my y variable </span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> adhd_medicatoin_yes_no <span class="co">#changing color based on variable ADHD medication</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>          )) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>( <span class="co">#calling jtter argument </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.15</span>, <span class="co">#width of jitter</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">height =</span> <span class="dv">0</span>, <span class="co">#height stays 0</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">2</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>( <span class="co">#manually choose colors</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>( </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"green"</span>,<span class="co">#green for yes values</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"red"</span> <span class="co">#red for no values </span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="co">#make proper labels </span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Study Sessions (minimum 25 minutes)"</span>, <span class="co">#specify label for x axis </span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"ADHD Medication (yes/no)"</span>, <span class="co">#specify label for y axis </span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Figure 1: Ability To Study For 25 Minutes As Shown</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="st">          By Use Of ADHD Medication"</span>, <span class="co">#come up with a descriptive title </span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"ADHD Medication"</span> <span class="co">#I chose to include the key to show how use of ADHD medication affects my ability to study for 25 consecutive minutes; sort this by color</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co">#change theme</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_homework-03_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Continuous Variable </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="co">#create plot</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> personal, <span class="co">#call in personal data </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>( </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> total_study_time_mins, <span class="co">#x axis is total study time in minutes</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> adhd_medicatoin_yes_no)) <span class="sc">+</span> <span class="co">#filling the histogram color if I took ADHD medication or not </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">6</span>, <span class="co">#rice rule needs 6 bins</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"black"</span>, <span class="co">#boarders black</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> <span class="co">#slightly translucent </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="co">#create separate panels for ADHD meds vs vs no ADHD meds </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> adhd_medicatoin_yes_no) <span class="sc">+</span> <span class="co">#choose category to divide histogram based off of </span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>( <span class="co">#fill the inside of histogram colors </span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"green"</span>, <span class="co">#green deontes a yes </span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"No"</span> <span class="ot">=</span> <span class="st">"red"</span>)) <span class="sc">+</span> <span class="co">#red denotes a no </span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="co">#make good labels </span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Total Study Time (minutes)"</span>, <span class="co">#x axis is total study time</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span>, <span class="co">#y is always count </span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Figure 2: Total Study Time Based on use of ADHD Medication"</span> <span class="co">#creative title </span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="co">#change theme</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co">#choose to not display ledgend </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ENVS-193DS_homework-03_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="a">
+<li>Captions</li>
+</ol>
+<p>Figure 1 shows the relationship between ADHD medication and quantity of minimum 25 minute study sessions. Each point represents an observation for a day in which the individual either took ADHD medication or did not and how many study sessions took place on that day. On days with no ADHD medication, there is a majority of observations for 0 study sessions. On days with ADHD medication there are no observations of 0 study sessions suggesting that ADHD medication corresponds to at least 1 study session on that given day.</p>
+<p>Figure 2 shows the relationship between total study time and use of ADHD medication. Each point represents an observation for a day in which the individual either took ADHD medication or did not and how many minutes the individual studied for. On days without ADHD medication, 0 minutes were studied for the majority of the time. On days with ADHD medication, there was a minimum of 100 minutes studied for each day suggesting that ADHD medication leads to longer study sessions.</p>
+</section>
+<section id="problem-3.-affective-visualization" class="level1">
+<h1>Problem 3. Affective visualization</h1>
+<ol type="a">
+<li>Describe Affective Visualization</li>
+</ol>
+<p>In looking at my data, I noticed that the majority of the time I did not take ADHD medication, I did not begin to study, however, every time I took ADHD medication, I studied at least for a little bit. In thinking about this fact, an affective visualization for my data could involve proportions of the amount of times I studied compared to the amount of times I did not study based on whether or not I took ADHD medication. I think it would be fun to represent these proportions in the form of multicolored pills that resemble the medication I take for ADHD.</p>
+<ol start="2" type="a">
+<li><p>Create a Sketch</p></li>
+<li><p>Create a Draft</p></li>
+<li><p>Write an artist statement.</p></li>
+</ol>
+<p>Content: I will be displaying the amount of days I studied compared to the days I do not study in relation to whether or not I took ADHD medication that day. I will displaying this information in proportions color coded onto two clay pills that resemble common ADHD medication.</p>
+<p>Influences: I was influenced by the popular film the Matrix where the main character gets to choose between two pills that will alter the course of the movie. I was also influenced by the affective visualization about proportion of free and enslaved people from Atlanta University.</p>
+<p>Form: I will be working with clay and paint to represent my data</p>
+<p>Process: I plan writing code to get a feel for how I can accurately visualize the proportions I want to represent. Then I will purchase clay and work with it until it resembles the shape of common ADHD medication. Then I will paint this clay to accurately show my proportions.</p>
+<ol start="5" type="a">
+<li>Prep your materials to share in class https://docs.google.com/presentation/d/1lzk5mWtgTSIDNiMMgediydyWw7oIgjWDWcZTOc0O6Jk/edit?usp=sharing</li>
+</ol>
 </section>
 
 </main>
